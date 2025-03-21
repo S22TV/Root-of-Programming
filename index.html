@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ЛАБ№8</title>
+    <link rel="shortcut icon" href="zurag/logo.png" type="image/x-icon">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+
+        h2 {
+            margin-top: 0;
+        }
+
+       
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        
+        .search-container {
+            margin-top: 20px;
+        }
+
+        .search-container input,
+        .search-container button {
+            padding: 8px;
+            margin: 5px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Оюутны дүнгийн мэдээлэл</h2>
+
+
+<table id="studentsTable">
+    <thead>
+        <tr>
+            <th>Нэр</th>
+            <th>Нас</th>
+            <th>Элсэлтийн Дүн</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+    </tbody>
+</table>
+
+
+<div class="search-container">
+    <input type="text" id="searchName" placeholder="Нэрээр хайх..." oninput="searchByName()">
+    <button onclick="searchByPassed()">Амжилттай элссэн</button>
+    <button onclick="searchByFailed()">Амжилтгүй элссэн</button>
+</div>
+
+<script>
+
+const students = [
+    ['Цэрэндорж', 18, 80],
+    ['Бат-Эрдэнэ', 22, 75],
+    ['Сарантуяа', 19, 55],
+    ['Төгсжаргал', 23, 45],
+    ['Алтантуяа', 21, 65],
+    ['Азжаргал', 19, 60],
+    ['Өсөхбаяр', 19, 70],
+    ['Энхбаяр', 21, 80],
+    ['Өнөболд', 24, 80],
+    ['Нэргүй', 18, 95],
+    ['Хүслэн', 18, 87],
+    ['Хонгорзул', 19, 100],
+    ['Баярцэцэг', 18, 100],
+    ['Дарханбаяр', 25, 50],
+    ['Хосбаяр', 18, 59],
+    ['Энхмөнх', 19, 55],
+    ['Сайханжаргал', 18, 43],
+];
+
+function updateTable(data) {
+    const tableBody = document.getElementById('studentsTable').getElementsByTagName('tbody')[0];
+    tableBody.innerHTML = '';
+
+
+    for (let i = 0; i < data.length; i++) {
+        const student = data[i];
+        const row = document.createElement('tr');
+        
+        for (let j = 0; j < student.length; j++) {
+            const cell = document.createElement('td');
+            cell.textContent = student[j]; 
+            row.appendChild(cell);
+        }
+
+        tableBody.appendChild(row);
+    }
+}
+
+function searchByName() {
+    const searchValue = document.getElementById('searchName').value.toLowerCase();
+    const filteredStudents = students.filter(student => student[0].toLowerCase().includes(searchValue));
+    updateTable(filteredStudents);
+}
+function searchByPassed() {
+    const passedStudents = students.filter(student => student[2] >= 60);
+    updateTable(passedStudents);
+}
+function searchByFailed() {
+    const failedStudents = students.filter(student => student[2] < 60);
+    updateTable(failedStudents);
+}
+
+updateTable(students);
+</script>
+
+</body>
+</html>
