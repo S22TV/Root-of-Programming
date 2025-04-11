@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+  <meta charset="UTF-8">
+  <title>ЛАБ№11 - Promise</title>
+    <link rel="shortcut icon" href="https://i.ibb.co/bg5WBRLD/logo.png" type="image/x-icon">
+</head>
+<body style="font-family: sans-serif; text-align: center; margin-top: 100px;">
+
+  <h1>🌦️ Цаг агаар шалгах</h1>
+  <button onclick="checkWeather()">Цаг агаар шалгах</button>
+  <p id="result" style="font-size: 24px; margin-top: 30px;"></p>
+
+  <script>
+    function checkWeather() {
+      const result = document.getElementById("result");
+      result.textContent = "Шалгаж байна...";
+
+      const weather = new Promise((resolve, reject) => {
+        const random = Math.random() > 0.5;
+        setTimeout(() => {
+          random ? resolve("☀️ Нарлаг байна!") : reject("🌧️ Бороо орж байна!");
+        }, 1500);
+      });
+
+      weather
+        .then(msg => result.textContent = msg)
+        .catch(msg => result.textContent = msg);
+    }
+  </script>
+
+</body>
+</html>
